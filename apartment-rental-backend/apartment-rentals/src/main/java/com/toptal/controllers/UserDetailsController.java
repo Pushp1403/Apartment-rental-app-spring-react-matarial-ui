@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,6 +58,12 @@ public class UserDetailsController extends BaseController {
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
 	public ResponseEntity<JwtUserDetails> updateUserDetails(@RequestBody JwtUserDetails user) {
 		return buildSuccessResponse(this.userDetailService.updateUserDetails(user));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/userDetails/{username}", method = RequestMethod.GET)
+	public ResponseEntity<?> retrieveUserDetails(@PathVariable("username") String username){
+		return buildSuccessResponse(this.userDetailService.loadUserByUsername(username));
 	}
 
 }

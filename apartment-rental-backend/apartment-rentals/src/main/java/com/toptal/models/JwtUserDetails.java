@@ -29,6 +29,7 @@ public class JwtUserDetails implements UserDetails {
 		this.authorities = authorities;
 	}
 
+	@JsonIgnore
 	public String getSecretKey() {
 		return secretKey;
 	}
