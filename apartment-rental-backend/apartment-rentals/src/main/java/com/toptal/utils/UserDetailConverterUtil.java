@@ -71,6 +71,23 @@ public class UserDetailConverterUtil {
 		}
 		return sb.toString();
 	}
+	
+	public String validateUpdates(JwtUserDetails user) {
+		StringBuilder sb = new StringBuilder(Constants.BLANK_STRING);
+		if (user.getFirstName() == null || user.getFirstName().trim().equals(Constants.BLANK_STRING)
+				|| user.getLastName() == null || user.getLastName().trim().equals(Constants.BLANK_STRING)
+				|| user.getSecretKey() == null || user.getSecretKey().trim().equals(Constants.BLANK_STRING)
+				|| user.getUsername() == null || user.getUsername().trim().equals(Constants.BLANK_STRING)) {
+			sb.append(Constants.MISSING_INFORMATION);
+			if (user.getFirstName() == null || user.getFirstName().trim().equals(Constants.BLANK_STRING))
+				sb.append(Constants.FIRST_NAME+Constants.COMMA);
+			if (user.getLastName() == null || user.getLastName().trim().equals(Constants.BLANK_STRING))
+				sb.append(Constants.LAST_NAME+Constants.COMMA);
+			if (user.getUsername() == null || user.getUsername().trim().equals(Constants.BLANK_STRING))
+				sb.append(Constants.USER_NAME+Constants.COMMA);
+		}
+		return sb.toString();
+	}
 
 	public String validateAuthenticationDetails(JwtTokenRequest req) {
 		StringBuilder sb = new StringBuilder(Constants.BLANK_STRING);

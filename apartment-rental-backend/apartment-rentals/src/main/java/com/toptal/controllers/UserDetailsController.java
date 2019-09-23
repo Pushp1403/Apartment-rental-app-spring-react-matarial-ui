@@ -56,7 +56,10 @@ public class UserDetailsController extends BaseController {
 	@ResponseBody
 	@Secured(Constants.ROLE_ADMIN)
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-	public ResponseEntity<JwtUserDetails> updateUserDetails(@RequestBody JwtUserDetails user) {
+	public ResponseEntity<?> updateUserDetails(@RequestBody JwtUserDetails user) {
+		String errorMessage = utils.validateUpdates(user);
+		if (!errorMessage.equals(Constants.BLANK_STRING))
+			return buildErrorResponse(errorMessage, HttpStatus.BAD_REQUEST);
 		return buildSuccessResponse(this.userDetailService.updateUserDetails(user));
 	}
 	
