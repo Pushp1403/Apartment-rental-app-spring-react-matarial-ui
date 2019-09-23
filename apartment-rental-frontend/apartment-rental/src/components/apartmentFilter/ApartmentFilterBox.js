@@ -52,7 +52,6 @@ export default function ApartmentFilterBox(props) {
                 label="Min Size"
                 onChange={onChangeHandler}
                 type="number"
-                autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={2}>

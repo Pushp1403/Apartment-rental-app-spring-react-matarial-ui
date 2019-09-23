@@ -7,12 +7,7 @@ export default function apartmentReducer(state = [], action) {
         apartments: action.apartments
       });
     case constants.APARTMENT_SAVED:
-      return Object.assign(
-        {},
-        {
-          apartments: [...state.apartments, action.apartments]
-        }
-      );
+      return addOrUpdateStore(state, action);
     case constants.APARTMENT_DELETED:
       return Object.assign(
         {},
@@ -24,5 +19,27 @@ export default function apartmentReducer(state = [], action) {
       );
     default:
       return state;
+  }
+}
+
+function addOrUpdateStore(state, action) {
+  if (action.apartment.apartmentId) {
+    let newState = state.apartments.filter(
+      apartment => apartment.apartmentId !== action.apartment.apartmentId
+    );
+    newState.push(action.apartment);
+    return Object.assign(
+      {},
+      {
+        apartments: newState
+      }
+    );
+  } else {
+    return Object.assign(
+      {},
+      {
+        apartments: [...state.apartments, action.apartments]
+      }
+    );
   }
 }

@@ -47,11 +47,11 @@ function UserCard(props) {
     }
   ];
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="md">
       <CssBaseline />
       <div className={classes.paper}>
         <form className={classes.form} onSubmit={onSubmitHandler}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} xl>
             <Grid item xs={12} sm={6}>
               <TextField
                 name="firstName"
@@ -84,7 +84,7 @@ function UserCard(props) {
                 name="username"
                 value={user.username}
                 onChange={onChangeHandler}
-                disabled
+                disabled={!user.newUser}
               />
             </Grid>
             <Grid item xs={12}>
@@ -96,7 +96,7 @@ function UserCard(props) {
                 name="secretKey"
                 value={user.secretKey}
                 onChange={onChangeHandler}
-                disabled={user.username !== ""}
+                disabled={!user.newUser}
               />
             </Grid>
             <Grid item xs={12} sm={12}>
@@ -110,7 +110,6 @@ function UserCard(props) {
                     name: "User Tupe",
                     id: "user-type"
                   }}
-                  disabled={user.authorities[0].role === "ROLE_ADMIN"}
                 >
                   {userRoles.map(role => {
                     return (
@@ -125,7 +124,10 @@ function UserCard(props) {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={8}>
+              <div style={{ flexGrow: 4 }}></div>
+            </Grid>
+            <Grid item xs={12} sm={2}>
               <Button
                 variant="contained"
                 color="secondary"
@@ -134,14 +136,14 @@ function UserCard(props) {
                 Delete User
               </Button>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={2}>
               <Button
                 type="submit"
                 variant="contained"
                 color="primary"
                 style={{ align: "flex-end" }}
               >
-                Save Changes
+                Save User
               </Button>
             </Grid>
           </Grid>

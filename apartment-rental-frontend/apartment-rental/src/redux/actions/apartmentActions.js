@@ -5,8 +5,8 @@ export function retrieveAllApartmentSuccess(apartments) {
   return { type: constants.APARTMENT_LOADED, apartments };
 }
 
-export function saveApartmentSuccess(apartments) {
-  return { type: constants.APARTMENT_SAVED, apartments };
+export function saveApartmentSuccess(apartment) {
+  return { type: constants.APARTMENT_SAVED, apartment };
 }
 
 export function deleteApartmentSuccessfull(apartment) {

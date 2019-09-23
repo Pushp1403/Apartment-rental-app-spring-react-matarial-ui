@@ -1,4 +1,5 @@
 import * as constants from "../constants";
+import authService from "./../../api/authenticationService";
 
 export default function userDetailsReducers(
   state = { user: "", users: "" },
@@ -14,7 +15,7 @@ export default function userDetailsReducers(
         }
       );
     case constants.REGISTER_NEW_USER:
-      return {};
+      return updateState(state, action);
     case constants.LOAD_USER_SUCCESS:
       return Object.assign(
         {},
@@ -28,9 +29,20 @@ export default function userDetailsReducers(
     case constants.USER_DETAILS_SAVED:
       return Object.assign(
         {},
-        { user: state.user, users: [...state.users, action.user] }
+        { user: { ...state.user }, users: [...state.users, action.user] }
       );
     default:
       return state;
+  }
+}
+
+function updateState(state, action) {
+  if (authService.getLoggedInUserName()) {
+    return Object.assign(
+      {},
+      { user: { ...state.user }, users: [...state.users, action.user] }
+    );
+  } else {
+    return {};
   }
 }

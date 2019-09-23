@@ -5,7 +5,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import FolderIcon from "@material-ui/icons/Folder";
+import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import EditIcon from "@material-ui/icons/Edit";
 import List from "@material-ui/core/List";
 import { Button } from "@material-ui/core";
@@ -32,7 +32,7 @@ function UserGrid(props) {
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
-                  <FolderIcon />
+                  <VerifiedUser />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText

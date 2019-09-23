@@ -8,12 +8,13 @@ import * as userActions from "./../redux/actions/userAction";
 import { connect } from "react-redux";
 
 function UserView(props) {
-  const { users, saveUser } = props;
+  const { users, saveUser, registerNewUser } = props;
   const newUser = {
     username: "",
     firstName: "",
     lastName: "",
     secretKey: "",
+    newUser: true,
     authorities: [{ role: "ROLE_CLIENT" }]
   };
   const [user, setUser] = useState({ ...newUser });
@@ -28,16 +29,29 @@ function UserView(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    saveUser()
-      .then(() => {
-        toast("user details Saved");
-      })
-      .catch(error => {
-        toast(error.message);
-      });
+    if (user.newUser) {
+      delete user.newUser;
+      registerNewUser(user)
+        .then(() => {
+          toast("User Created");
+        })
+        .catch(error => {
+          toast(error.message);
+        });
+    } else {
+      delete user.newUser;
+      saveUser(user)
+        .then(() => {
+          toast("user details Saved");
+        })
+        .catch(error => {
+          toast(error.message);
+        });
+    }
   };
 
   const onEditClick = user => {
+    user.newUser = false;
     setUser({ ...user });
   };
 
@@ -47,6 +61,7 @@ function UserView(props) {
       firstName: "",
       lastName: "",
       secretKey: "",
+      newUser: true,
       authorities: [{ role: "ROLE_CLIENT" }]
     });
   };
@@ -60,14 +75,17 @@ function UserView(props) {
       <Paper style={{ paddingTop: 100 }}>
         <Grid container spacing={1}>
           <Grid item xs={3}>
-            <UserGrid users={users} onEdit={onEditClick}></UserGrid>
+            <UserGrid
+              users={users}
+              onEdit={onEditClick}
+              resetForm={resetForm}
+            ></UserGrid>
           </Grid>
           <Grid item xs={9}>
             <UserCard
               user={user}
               onChangeHandler={handleChange}
               onSubmitHandler={handleSubmit}
-              resetForm={resetForm}
               deleteUser={deleteUser}
               roleChangeHandler={roleChangeHandler}
             ></UserCard>
@@ -84,7 +102,8 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = {
-  saveUser: userActions.saveUserDetails
+  saveUser: userActions.saveUserDetails,
+  registerNewUser: userActions.registerNewUser
 };
 
 export default connect(
