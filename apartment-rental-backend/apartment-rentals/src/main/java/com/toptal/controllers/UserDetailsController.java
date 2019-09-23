@@ -57,10 +57,15 @@ public class UserDetailsController extends BaseController {
 	@Secured(Constants.ROLE_ADMIN)
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
 	public ResponseEntity<?> updateUserDetails(@RequestBody JwtUserDetails user) {
+		JwtUserDetails details = (JwtUserDetails) userDetailService.loadUserByUsername(user.getUsername());
+		if (null == details) {
+			return buildErrorResponse(Constants.USER_NOT_EXIST, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		String errorMessage = utils.validateUpdates(user);
 		if (!errorMessage.equals(Constants.BLANK_STRING))
 			return buildErrorResponse(errorMessage, HttpStatus.BAD_REQUEST);
-		return buildSuccessResponse(this.userDetailService.updateUserDetails(user));
+	
+		return buildSuccessResponse(this.userDetailService.updateUserDetails(user, details));
 	}
 	
 	@ResponseBody

@@ -10,5 +10,7 @@ import com.toptal.entities.Apartment;
 public interface IApartmentRepository extends JpaRepository<Apartment, Long>, JpaSpecificationExecutor<Apartment>{
 	
 	List<Apartment> findByEnabled(Boolean enabled);
+
+	List<Apartment> findByEnabledAndState(boolean b, boolean c);
 	
 }

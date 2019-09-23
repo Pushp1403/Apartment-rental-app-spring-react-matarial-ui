@@ -45,6 +45,8 @@ public class UserDetailConverterUtil {
 		for (Authority auth : detail.getRoles()) {
 			com.toptal.models.Authority authority = new com.toptal.models.Authority();
 			authority.setRole(auth.getAuthority());
+			authority.setUsername(auth.getUsername());
+			authority.setId(auth.getId());
 			authorities.add(authority);
 		}
 		JwtUserDetails user = new JwtUserDetails(detail.getUsername(), detail.getPassword(),
@@ -76,7 +78,6 @@ public class UserDetailConverterUtil {
 		StringBuilder sb = new StringBuilder(Constants.BLANK_STRING);
 		if (user.getFirstName() == null || user.getFirstName().trim().equals(Constants.BLANK_STRING)
 				|| user.getLastName() == null || user.getLastName().trim().equals(Constants.BLANK_STRING)
-				|| user.getSecretKey() == null || user.getSecretKey().trim().equals(Constants.BLANK_STRING)
 				|| user.getUsername() == null || user.getUsername().trim().equals(Constants.BLANK_STRING)) {
 			sb.append(Constants.MISSING_INFORMATION);
 			if (user.getFirstName() == null || user.getFirstName().trim().equals(Constants.BLANK_STRING))
@@ -112,5 +113,13 @@ public class UserDetailConverterUtil {
 
 	private String encoded(String password) {
 		return new BCryptPasswordEncoder().encode(password);
+	}
+
+	public Authority createAuthorityEntity(com.toptal.models.Authority auth, JwtUserDetails authUser) {
+		Authority at = new Authority();
+		at.setId(authUser.getAuthorities().get(0).getId());
+		at.setUsername(auth.getUsername());
+		at.setAuthority(auth.getAuthority());
+		return at;
 	}
 }

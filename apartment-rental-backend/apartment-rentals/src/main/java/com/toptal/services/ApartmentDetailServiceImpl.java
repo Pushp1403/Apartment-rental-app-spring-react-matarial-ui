@@ -6,10 +6,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.toptal.entities.Apartment;
 import com.toptal.models.ApartmentDetails;
+import com.toptal.models.JwtUserDetails;
 import com.toptal.repositories.IApartmentRepository;
 import com.toptal.utils.ApartmentDetailsConverterUtil;
 import com.toptal.utils.ApartmentFilterCriteria;
@@ -32,7 +35,14 @@ public class ApartmentDetailServiceImpl implements IApartmentDetailServices {
 	}
 
 	public List<ApartmentDetails> listAllApartments() {
-		List<Apartment> apartments = apartmentRepository.findByEnabled(true);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			String role = ((JwtUserDetails) principal).getAuthorities().get(0).getAuthority();
+			if (role.equals("ROLE_ADMIN") || role.equals("ROLE_REALTOR")) {
+				return getApartmentDetails(apartmentRepository.findByEnabled(true));
+			}
+		}
+		List<Apartment> apartments = apartmentRepository.findByEnabledAndState(true, true);
 		return getApartmentDetails(apartments);
 
 	}

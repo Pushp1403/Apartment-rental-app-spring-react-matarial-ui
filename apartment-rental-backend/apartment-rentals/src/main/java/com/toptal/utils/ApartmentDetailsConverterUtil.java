@@ -129,6 +129,7 @@ public class ApartmentDetailsConverterUtil {
 				if (null != criteria.getMaxSize()) {
 					predicate.add(cb.lessThanOrEqualTo(root.get("floorArea"), criteria.getMaxSize()));
 				}
+				predicate.add(cb.equal(root.get("enabled"), true));
 
 				return cb.and(predicate.toArray(new Predicate[] {}));
 			}

@@ -15,6 +15,8 @@ public class Constants {
 	public static final String JWT_TOKEN_UNABLE_TO_GET_USERNAME = "JWT_TOKEN_UNABLE_TO_GET_USERNAME";
 	public static final String JWT_TOKEN_EXPIRED = "JWT_TOKEN_EXPIRED";
 	public static final String JWT_TOKEN_DOES_NOT_START_WITH_BEARER_STRING = "JWT_TOKEN_DOES_NOT_START_WITH_BEARER_STRING";
+	public static final String USER_NOT_EXIST = "User Does not exist. Please Register User first";
+
 
 	public static final String MISSING_INFORMATION = "Missing required information: ";
 	public static final String ADDRESS = "Address";

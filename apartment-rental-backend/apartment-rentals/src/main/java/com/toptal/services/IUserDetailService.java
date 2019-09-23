@@ -13,7 +13,7 @@ public interface IUserDetailService extends UserDetailsService {
 	JwtUserDetails registerNewUser(JwtUserDetails user);
 
 	List<JwtUserDetails> retrieveAllUsers();
-
-	JwtUserDetails updateUserDetails(JwtUserDetails user);
+	
+	JwtUserDetails updateUserDetails(JwtUserDetails user, JwtUserDetails authUser);
 
 }
