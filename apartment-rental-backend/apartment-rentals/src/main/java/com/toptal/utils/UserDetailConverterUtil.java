@@ -118,7 +118,7 @@ public class UserDetailConverterUtil {
 	public Authority createAuthorityEntity(com.toptal.models.Authority auth, JwtUserDetails authUser) {
 		Authority at = new Authority();
 		at.setId(authUser.getAuthorities().get(0).getId());
-		at.setUsername(auth.getUsername());
+		at.setUsername(authUser.getUsername());
 		at.setAuthority(auth.getAuthority());
 		return at;
 	}

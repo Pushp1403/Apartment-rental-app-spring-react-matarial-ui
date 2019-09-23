@@ -64,8 +64,8 @@ public class UserDetailsController extends BaseController {
 		String errorMessage = utils.validateUpdates(user);
 		if (!errorMessage.equals(Constants.BLANK_STRING))
 			return buildErrorResponse(errorMessage, HttpStatus.BAD_REQUEST);
-	
-		return buildSuccessResponse(this.userDetailService.updateUserDetails(user, details));
+		this.userDetailService.updateUserDetails(user, details);
+		return buildSuccessResponse(userDetailService.loadUserByUsername(user.getUsername()));
 	}
 	
 	@ResponseBody
