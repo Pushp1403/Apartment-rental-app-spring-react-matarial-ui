@@ -26,7 +26,7 @@ export default function userDetailsReducers(
       );
     case constants.USER_LOAD_SUCCESS:
       return Object.assign({}, { user: action.user, users: state.users });
-    case constants.USER_DETAILS_SAVED:
+    case constants.USER_DETAILS_UPDATE:
       return Object.assign(
         {},
         { user: { ...state.user }, users: [...state.users, action.user] }

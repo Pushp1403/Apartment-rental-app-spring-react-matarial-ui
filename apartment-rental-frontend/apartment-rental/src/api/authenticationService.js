@@ -4,6 +4,9 @@ export const USER_NAME_SESSION_ATTRIBUTE_NAME = "authenticatedUser";
 
 class AuthenticationService {
   executeJwtAuthenticationService(user) {
+    if (sessionStorage.getItem("TOKEN")) {
+      sessionStorage.removeItem("TOKEN");
+    }
     return API.post(`${AUTHENTICATION_PATH}`, {
       username: user.username,
       password: user.password

@@ -6,6 +6,7 @@ export const APARTMENT_DELETED = "APARTMENT_DELETED";
 export const LOAD_USER_SUCCESS = "LOAD_USER_SUCCESS";
 export const USER_LOAD_SUCCESS = "USER_LOAD_SUCCESS";
 export const USER_DETAILS_SAVED = "USER_DETAILS_SAVED";
+export const USER_DETAILS_UPDATE = "USER_DETAILS_UPDATE";
 //All URIs
 export const USER_API_PATH = "/api/user";
 export const APARTMENT_API_PATH = "/api/apartment";

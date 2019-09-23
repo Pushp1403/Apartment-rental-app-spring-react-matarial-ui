@@ -8,7 +8,7 @@ import * as userActions from "./../redux/actions/userAction";
 import { connect } from "react-redux";
 
 function UserView(props) {
-  const { users, saveUser, registerNewUser } = props;
+  const { users, updateUser, registerNewUser } = props;
   const newUser = {
     username: "",
     firstName: "",
@@ -40,7 +40,7 @@ function UserView(props) {
         });
     } else {
       delete user.newUser;
-      saveUser(user)
+      updateUser(user)
         .then(() => {
           toast("user details Saved");
         })
@@ -102,7 +102,7 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = {
-  saveUser: userActions.saveUserDetails,
+  updateUser: userActions.updateUser,
   registerNewUser: userActions.registerNewUser
 };
 

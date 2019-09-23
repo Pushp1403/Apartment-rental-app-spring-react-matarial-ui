@@ -18,8 +18,8 @@ export function userLoadSuccess(user) {
   return { type: constants.USER_LOAD_SUCCESS, user };
 }
 
-export function userDetailsSavedSuccess(user) {
-  return { type: constants.USER_DETAILS_SAVED, user };
+export function userDetailsUpdateSuccess(user) {
+  return { type: constants.USER_DETAILS_UPDATE, user };
 }
 
 export function registerNewUser(user) {
@@ -67,11 +67,11 @@ export function retrieveAllUsers() {
   };
 }
 
-export function saveUserDetails(user) {
+export function updateUser(user) {
   return async function(dispatch, getState) {
     try {
       const res = await userService.saveUserDetails(user);
-      dispatch(userDetailsSavedSuccess(res.data));
+      dispatch(userDetailsUpdateSuccess(res.data));
     } catch (error) {
       throw error;
     }
