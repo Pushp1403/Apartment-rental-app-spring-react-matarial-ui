@@ -10,7 +10,7 @@ import Paper from "@material-ui/core/Paper";
 export default class AddressAutocomplete extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { address: "" };
+    this.state = { address: props.apartment.address };
   }
 
   handleChange = address => {

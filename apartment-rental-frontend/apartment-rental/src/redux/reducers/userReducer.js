@@ -27,10 +27,7 @@ export default function userDetailsReducers(
     case constants.USER_LOAD_SUCCESS:
       return Object.assign({}, { user: action.user, users: state.users });
     case constants.USER_DETAILS_UPDATE:
-      return Object.assign(
-        {},
-        { user: { ...state.user }, users: [...state.users, action.user] }
-      );
+      return mergeUsers(state, action);
     default:
       return state;
   }
@@ -45,4 +42,17 @@ function updateState(state, action) {
   } else {
     return {};
   }
+}
+
+function mergeUsers(state, action) {
+  let users = state.users;
+  let newState = users.filter(user => user.username !== action.user.username);
+  newState.push(action.user);
+  return Object.assign(
+    {},
+    {
+      users: newState,
+      user: { ...state.user }
+    }
+  );
 }

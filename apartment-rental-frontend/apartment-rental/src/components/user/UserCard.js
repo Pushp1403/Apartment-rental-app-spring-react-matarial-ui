@@ -97,6 +97,7 @@ function UserCard(props) {
                 value={user.secretKey}
                 onChange={onChangeHandler}
                 disabled={!user.newUser}
+                type="password"
               />
             </Grid>
             <Grid item xs={12} sm={12}>

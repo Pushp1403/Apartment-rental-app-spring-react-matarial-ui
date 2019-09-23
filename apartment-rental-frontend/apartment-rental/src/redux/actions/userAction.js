@@ -27,7 +27,7 @@ export function registerNewUser(user) {
     return userService
       .registerUser(user)
       .then(res => {
-        dispatch(registerNewUserSuccess({}));
+        dispatch(registerNewUserSuccess(res.data));
       })
       .catch(error => {
         throw error;
